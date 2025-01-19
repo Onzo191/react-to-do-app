@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../services/firebase.service";
+import { login } from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -13,10 +12,10 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      await navigate("/todo");
-    } catch (err) {
-      setError(err.message);
+      const user = await login(email, password);
+      if (user) await navigate("/todo");
+    } catch (error) {
+      setError(error.message);
     }
   };
 

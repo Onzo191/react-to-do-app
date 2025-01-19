@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../services/firebase.service";
+import { register } from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
@@ -13,8 +12,8 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      await navigate("/todo");
+      const user = await register(email, password);
+      if (user) await navigate("/todo");
     } catch (err) {
       setError(err.message);
     }
