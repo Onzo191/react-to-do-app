@@ -1,16 +1,11 @@
 import { useAuth } from "../contexts/Auth.context";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { logout } from "../services/auth.service";
+import NavBar from "../components/shared/NavBar.component";
 
 const TodoPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    await logout();
-    await navigate("/login");
-  };
 
   useEffect(() => {
     if (!user) {
@@ -19,10 +14,11 @@ const TodoPage = () => {
   }, [user, navigate]);
 
   return (
-    <div>
-      <h1>Todo App</h1>
-      <p>Welcome, {user?.email}</p>
-      <button onClick={handleLogout}>Logout</button>
+    <div className="min-h-screen">
+      <NavBar />
+      <div className="max-w-screen-xl mx-auto bg-white sm:rounded-lg flex justify-center flex-1 overflow-hidden">
+        <p>Welcome, {user?.email}</p>
+      </div>
     </div>
   );
 };

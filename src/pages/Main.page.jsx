@@ -23,14 +23,14 @@ const MainPage = () => {
                 <>
                   <Button
                     onClick={() => navigate("/login")}
-                    className="flex items-center justify-center m-2 w-full px-4 py-2 text-base font-normal text-white bg-indigo-500 border border-transparent rounded-full text-md hover:bg-indigo-600 md:py-4 md:px-10 md:py-2 transition"
+                    className="flex items-center justify-center m-2 w-full px-4 py-2 text-base font-normal text-white bg-indigo-500 border border-transparent rounded-full text-md hover:bg-indigo-600 md:px-10 md:py-2 transition"
                   >
                     Login
                   </Button>
 
                   <Button
                     onClick={() => navigate("/register")}
-                    className="flex items-center justify-center m-2 w-full px-4 py-2 text-base font-normal text-indigo-500 border border-indigo-500 rounded-full text-md hover:bg-indigo-300 md:py-4 md:px-10 md:py-2 transition"
+                    className="flex items-center justify-center m-2 w-full px-4 py-2 text-base font-normal text-indigo-500 border border-indigo-500 rounded-full text-md hover:bg-indigo-300 md:px-10 md:py-2 transition"
                   >
                     Register
                   </Button>
@@ -38,7 +38,7 @@ const MainPage = () => {
               ) : (
                 <Button
                   onClick={() => navigate("/todo")}
-                  className="flex items-center justify-center m-2 w-full px-4 py-2 text-base font-normal text-white bg-indigo-500 border border-transparent rounded-full text-md hover:bg-indigo-600 md:py-4 md:px-10 md:py-2 transition"
+                  className="flex items-center justify-center m-2 w-full px-4 py-2 text-base font-normal text-white bg-indigo-500 border border-transparent rounded-full text-md hover:bg-indigo-600 md:px-10 md:py-2 transition"
                 >
                   Use now
                 </Button>
