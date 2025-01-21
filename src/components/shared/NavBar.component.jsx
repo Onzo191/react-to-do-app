@@ -26,7 +26,7 @@ const NavBar = () => {
         <div className="hidden items-center gap-2 lg:flex">
           <Button
             onClick={handleLogout}
-            className="px-4 py-2 px-4 py-2 text-base font-normal text-white bg-red-600 rounded hover:bg-red-700 md:px-10 md:py-2 transition"
+            className="px-4 py-2 text-base font-normal text-white bg-red-600 rounded hover:bg-red-700 md:px-10 md:py-2 transition"
           >
             Logout
           </Button>

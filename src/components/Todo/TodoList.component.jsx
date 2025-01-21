@@ -11,12 +11,24 @@ const TodoList = ({ todos, onUpdateTodo, onDeleteTodo }) => {
     return groups;
   }, {});
 
+  const sortedDeadlines = Object.keys(groupedTodos).sort((a, b) => {
+    if (a === "No Deadline") return 1;
+    if (b === "No Deadline") return -1;
+    return new Date(a) - new Date(b);
+  });
+
   return (
-    <div>
-      {groupedTodos.length !== 0 ? (
-        Object.keys(groupedTodos).map((deadline) => (
+    <div className="w-full">
+      {sortedDeadlines.length !== 0 ? (
+        sortedDeadlines.map((deadline, index) => (
           <div key={deadline}>
-            <h3>{deadline}</h3>
+            <h3
+              className={`font-bold text-gray-900 ${
+                index === 0 ? "pt-0" : "pt-12"
+              } pb-4`}
+            >
+              {deadline}
+            </h3>
             <ul>
               {groupedTodos[deadline].map((todo, index) => (
                 <TodoItem
