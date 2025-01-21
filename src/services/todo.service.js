@@ -1,51 +1,65 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { auth, db } from "./firebase";
 
-export const signUp = async (email, password) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
+export const addTodo = async (uid, todo) => {
+  const userDoc = doc(db, "todos", uid);
+  const userSnapshot = await getDoc(userDoc);
 
-    await setDoc(doc(db, "users", user.uid), {
-      email: user.email,
-      createdAt: new Date(),
+  if (userSnapshot.exists()) {
+    const userData = userSnapshot.data();
+    userData.todos.push(todo);
+    await setDoc(userDoc, userData);
+  } else {
+    await setDoc(userDoc, {
+      createdDate: new Date(),
+      email: auth.currentUser.email,
+      todos: [todo],
     });
-
-    return user;
-  } catch (error) {
-    console.error("Error signing up: ", error);
-    throw error;
   }
 };
 
-export const signIn = async (email, password) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
+export const updateTodo = async (uid, todoIndex, updatedTodo) => {
+  const userDoc = doc(db, "todos", uid);
+  const userSnapshot = await getDoc(userDoc);
 
-    const userDoc = await getDoc(doc(db, "users", user.uid));
+  if (userSnapshot.exists()) {
+    const userData = userSnapshot.data();
+    userData.todos[todoIndex] = updatedTodo;
+    await setDoc(userDoc, userData);
+  }
+};
 
-    if (userDoc.exists()) {
-      const userData = userDoc.data();
-      return { ...user, ...userData };
-    } else {
-      console.log("No such user!");
-      return null;
-    }
-  } catch (error) {
-    console.error("Error signing in: ", error);
-    throw error;
+export const deleteTodo = async (uid, todoIndex) => {
+  const userDoc = doc(db, "todos", uid);
+  const userSnapshot = await getDoc(userDoc);
+
+  if (userSnapshot.exists()) {
+    const userData = userSnapshot.data();
+    userData.todos.splice(todoIndex, 1);
+    await setDoc(userDoc, userData);
+  }
+};
+
+export const deleteAllTodos = async (uid) => {
+  const userDoc = doc(db, "todos", uid);
+  const userSnapshot = await getDoc(userDoc);
+
+  if (userSnapshot.exists()) {
+    await setDoc(userDoc, {
+      createdDate: userSnapshot.data().createdDate,
+      email: userSnapshot.data().email,
+      todos: [],
+    });
+  }
+};
+
+export const getTodos = async (uid) => {
+  const userDoc = doc(db, "todos", uid);
+  const userSnapshot = await getDoc(userDoc);
+
+  if (userSnapshot.exists()) {
+    return userSnapshot.data().todos;
+  } else {
+    return [];
   }
 };
