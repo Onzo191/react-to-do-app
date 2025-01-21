@@ -14,7 +14,7 @@ const TodoList = ({ todos, onUpdateTodo, onDeleteTodo }) => {
   const sortedDeadlines = Object.keys(groupedTodos).sort((a, b) => {
     if (a === "No Deadline") return 1;
     if (b === "No Deadline") return -1;
-    return new Date(a) - new Date(b);
+    return new Date(b) - new Date(a);
   });
 
   return (

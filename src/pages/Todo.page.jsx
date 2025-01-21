@@ -11,7 +11,7 @@ import TodoList from "../components/Todo/TodoList.component";
 import { NavBar, Input, Button } from "../components/shared";
 
 const TodoPage = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
   const [todos, setTodos] = useState([]);
@@ -20,12 +20,14 @@ const TodoPage = () => {
   const [todoDeadline, setTodoDeadline] = useState(today);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    } else {
-      fetchTodos();
+    if (!loading) {
+      if (!user) {
+        navigate("/login");
+      } else {
+        fetchTodos();
+      }
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate]);
 
   const fetchTodos = async () => {
     const fetchedTodos = await getTodos(user.uid);
