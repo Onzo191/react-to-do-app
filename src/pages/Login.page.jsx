@@ -72,18 +72,8 @@ const LoginPage = () => {
             </Button>
           </form>
 
-          {error ? (
+          {error && (
             <p className="mt-6 text-xs text-red-600 text-center">{error}</p>
-          ) : (
-            <p className="mt-6 text-xs text-gray-600 text-center">
-              Template by templatana&#39;s
-              <a
-                href="https://codepen.io/owaiswiz/pen/jOPvEPB"
-                className="border-b border-gray-500 border-dotted ml-1"
-              >
-                Source Code
-              </a>
-            </p>
           )}
         </div>
       </div>
